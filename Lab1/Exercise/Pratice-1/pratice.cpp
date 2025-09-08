@@ -68,5 +68,6 @@ int solveQuartic(double a, double b, double c, double x[])
 int main()
 {
     int x = 2;
-    cout << (log(x * x * cos(x)) < 6) << endl;
+    cout << cos(x) << endl;
+    cout << (log(x * x * cos(x))) << endl;
 }
