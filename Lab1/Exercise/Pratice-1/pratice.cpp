@@ -39,7 +39,7 @@ int solveQuartic(double a, double b, double c, double x[])
     }
     return count;
 }
-int main()
+/*int main()
 {
     double a, b, c;
     cin >> a >> b >> c;
@@ -63,4 +63,10 @@ int main()
         cout << endl;
     }
     return 0;
+}*/
+
+int main()
+{
+    int x = 2;
+    cout << (log(x * x * cos(x)) < 6) << endl;
 }
