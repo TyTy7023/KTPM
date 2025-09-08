@@ -1,0 +1,8 @@
+Test 1: Output = Max: 5, Expected = 5
+Test 2: Output = Max: 3, Expected = 3
+Test 3: Output = Max: 3, Expected = 3
+Test 4: Output = Max: -1, Expected = -1
+Test 5: Output = Max: 0, Expected = 3
+Test 6: Output = Max: 0, Expected = 3
+Test 7: Output = Max: 0, Expected = 3
+Test 8: Output = Max: 0, Expected = 3
