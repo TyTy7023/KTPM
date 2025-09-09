@@ -5,13 +5,9 @@ using namespace std;
 int solveQuartic(double a, double b, double c, double x[])
 {
     if (a == 0 && b == 0 && c == 0)
-    {
         return -1;
-    }
     if (a == 0 && b == 0)
-    {
         return 0;
-    }
     if (a == 0)
     {
         double y = -c / b;
@@ -21,11 +17,13 @@ int solveQuartic(double a, double b, double c, double x[])
         x[1] = -sqrt(y);
         return 2;
     }
+
     double delta = b * b - 4 * a * c;
     if (delta < 0)
         return 0;
     double y1 = (-b + sqrt(delta)) / (2 * a);
     double y2 = (-b - sqrt(delta)) / (2 * a);
+
     int count = 0;
     if (y1 >= 0)
     {
@@ -39,7 +37,7 @@ int solveQuartic(double a, double b, double c, double x[])
     }
     return count;
 }
-/*int main()
+int main()
 {
     double a, b, c;
     cin >> a >> b >> c;
@@ -63,11 +61,4 @@ int solveQuartic(double a, double b, double c, double x[])
         cout << endl;
     }
     return 0;
-}*/
-
-int main()
-{
-    int x = 2;
-    cout << cos(x) << endl;
-    cout << (log(x * x * cos(x))) << endl;
 }

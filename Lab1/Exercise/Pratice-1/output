@@ -1,0 +1,8 @@
+ Input                                         Output             Expected
+ 0 0 0                            Infinite solutions.  Infinite solutions.
+ 0 0 5                                   No solution.         No solution.
+0 2 -8      The equation has 2 real solution(s): 2 -2                 2 -2
+1 -5 4 The equation has 4 real solution(s): 2 -2 1 -1            2 -2 1 -1
+ 1 2 3                                   No solution.         No solution.
+1 -2 1      The equation has 2 real solution(s): 1 -1                 1 -1
+ 1 1 0      The equation has 2 real solution(s): 0 -0                    0
