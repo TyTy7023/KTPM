@@ -1,0 +1,112 @@
+CREATE DATABASE BankDB_Optimized;
+GO
+USE BankDB_Optimized;
+GO
+
+-- BRANCH
+CREATE TABLE BRANCH (
+    Name        CHAR(5) PRIMARY KEY,         -- Mã chi nhánh, cố định
+    AddressNo   NVARCHAR(10),
+    Street      NVARCHAR(50),
+    District    NVARCHAR(50),
+    City        NVARCHAR(50),
+    Region      NVARCHAR(30),
+    Email       NVARCHAR(100),
+    MngCode     CHAR(6) NULL                 -- Mã nhân viên quản lý
+);
+
+-- BRANCH PHONE
+CREATE TABLE BRANCHPHONE (
+    BraName     CHAR(5),
+    Phone       CHAR(15),                    -- SĐT độ dài cố định
+    PRIMARY KEY (BraName, Phone),
+    FOREIGN KEY (BraName) REFERENCES BRANCH(Name)
+);
+
+-- BRANCH FAX
+CREATE TABLE BRANCHFAX (
+    BraName     CHAR(5),
+    Fax         CHAR(15),
+    PRIMARY KEY (BraName, Fax),
+    FOREIGN KEY (BraName) REFERENCES BRANCH(Name)
+);
+
+-- EMPLOYEE
+CREATE TABLE EMPLOYEE (
+    Code        CHAR(6) PRIMARY KEY,         -- Mã NV
+    FName       NVARCHAR(30),
+    LName       NVARCHAR(30),
+    AddressNo   NVARCHAR(10),
+    Street      NVARCHAR(50),
+    District    NVARCHAR(50),
+    City        NVARCHAR(50),
+    DOB         DATE,
+    Email       NVARCHAR(100),
+    BraName     CHAR(5),
+    FOREIGN KEY (BraName) REFERENCES BRANCH(Name)
+);
+
+-- EMPLOYEE PHONE
+CREATE TABLE EMPLOYEEPHONE (
+    EmpCode     CHAR(6),
+    Phone       CHAR(15),
+    PRIMARY KEY (EmpCode, Phone),
+    FOREIGN KEY (EmpCode) REFERENCES EMPLOYEE(Code)
+);
+
+-- CUSTOMER
+CREATE TABLE CUSTOMER (
+    Code            CHAR(6) PRIMARY KEY,     -- Mã KH
+    FName           NVARCHAR(30),
+    LName           NVARCHAR(30),
+    OfficeAddress   NVARCHAR(100),
+    HomeAddress     NVARCHAR(100),
+    Email           NVARCHAR(100),
+    EmpCode         CHAR(6),
+    FOREIGN KEY (EmpCode) REFERENCES EMPLOYEE(Code)
+);
+
+-- CUSTOMER PHONE
+CREATE TABLE CUSTOMERPHONE (
+    CusCode     CHAR(6),
+    Phone       CHAR(15),
+    PRIMARY KEY (CusCode, Phone),
+    FOREIGN KEY (CusCode) REFERENCES CUSTOMER(Code)
+);
+
+-- ACCOUNT
+CREATE TABLE ACCOUNT (
+    Number      CHAR(10) PRIMARY KEY,        -- Số tài khoản
+    CusCode     CHAR(6),
+    FOREIGN KEY (CusCode) REFERENCES CUSTOMER(Code)
+);
+
+-- SAVING ACCOUNT
+CREATE TABLE SAVINGACCOUNT (
+    AccNumber   CHAR(10) PRIMARY KEY,
+    Balance     DECIMAL(18,2) CHECK (Balance >= 0),
+    InterestRate DECIMAL(5,2) CHECK (InterestRate >= 0),
+    OpenedDate  DATE,
+    FOREIGN KEY (AccNumber) REFERENCES ACCOUNT(Number)
+);
+
+-- CHECKING ACCOUNT
+CREATE TABLE CHECKINGACCOUNT (
+    AccNumber   CHAR(10) PRIMARY KEY,
+    Balance     DECIMAL(18,2) CHECK (Balance >= 0),
+    OpenedDate  DATE,
+    FOREIGN KEY (AccNumber) REFERENCES ACCOUNT(Number)
+);
+
+-- LOAN
+CREATE TABLE LOAN (
+    AccNumber   CHAR(10) PRIMARY KEY,
+    BalanceDue  DECIMAL(18,2) CHECK (BalanceDue >= 0),
+    InterestRate DECIMAL(5,2) CHECK (InterestRate >= 0),
+    TakenDate   DATE,
+    FOREIGN KEY (AccNumber) REFERENCES ACCOUNT(Number)
+);
+
+-- Ràng buộc Manager (MngCode) tham chiếu Employee
+ALTER TABLE BRANCH
+ADD CONSTRAINT FK_BRANCH_MANAGER FOREIGN KEY (MngCode) REFERENCES EMPLOYEE(Code);
